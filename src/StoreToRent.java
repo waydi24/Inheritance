@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class StoreToRent {
     
     private static final double MAINTENANCE_COST = 1000;
+    private final double INTEREST_RATE = 0.25;
     
     
     private String storeName;
@@ -10,10 +11,13 @@ public class StoreToRent {
     private double totalArea;
     private double sellingPrice;
     private double rent;
-
+    
     private String minimumLeasePeriod;
     private String floorNumber;
     private boolean available;
+    private boolean loanRequired;
+    private double loanAmount;
+    private int loanPaymentTerm;
 
     public String getStoreName() {
         return storeName;
@@ -41,6 +45,22 @@ public class StoreToRent {
 
     public String getFloorNumber() {
         return floorNumber;
+    }
+
+    public double getINTEREST_RATE(){
+        return INTEREST_RATE;
+    }
+
+    public boolean getLoanRequired(){
+        return loanRequired;
+    }
+
+    public double getLoanAmount(){
+        return loanAmount;
+    }
+
+    public int geetLoanPaymentTerm(){
+        return loanPaymentTerm;
     }
 
     public boolean isAvailable() {
@@ -79,6 +99,12 @@ public class StoreToRent {
         this.available = available;
     }
 
+    public StoreToRent(boolean loanRequired, double loanAmount, int loanPaymentTerm){
+        this.loanRequired = loanRequired;
+        this.loanAmount = loanAmount;
+        this.loanPaymentTerm = loanPaymentTerm;
+    }
+
     public void enterStoreDetails(){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Store Name: ");
@@ -104,6 +130,14 @@ public class StoreToRent {
         
     }
 
+    public double calculateLoanFinancing(){
+        if(loanRequired == true){
+            return (loanAmount * (1 + INTEREST_RATE))/loanPaymentTerm;
+        }else{
+            return 0;
+        }
+    }
+    
     @Override
     public String toString() {
         return "\n" + 
